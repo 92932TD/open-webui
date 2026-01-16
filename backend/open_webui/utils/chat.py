@@ -218,6 +218,7 @@ async def generate_chat_completion(
                 ]
 
             selected_model_id = None
+<<<<<<< Updated upstream
             if isinstance(model_ids, list) and model_ids:
                 selected_model_id = random.choice(model_ids)
             else:
@@ -226,6 +227,20 @@ async def generate_chat_completion(
                     for model in list(request.app.state.MODELS.values())
                     if model.get("owned_by") != "arena"
                 ]
+=======
+            
+            # Check if per-chat model selection exists
+            if EVALUATION_ARENA_PER_CHAT_RANDOMIZATION.value and chat_id:
+                chat = Chats.get_chat_by_id(chat_id)
+                if chat:
+                    selected_model_id = chat.meta.get("arena_selected_model")
+                    # Validate model is still valid
+                    if selected_model_id not in model_ids:
+                        selected_model_id = None
+            
+            # Select random model if needed
+            if not selected_model_id:
+>>>>>>> Stashed changes
                 selected_model_id = random.choice(model_ids)
 
             form_data["model"] = selected_model_id

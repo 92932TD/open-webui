@@ -13,7 +13,7 @@ from starlette.responses import FileResponse
 from open_webui.utils.misc import get_gravatar_url
 from open_webui.utils.pdf_generator import PDFGenerator
 from open_webui.utils.auth import get_admin_user, get_verified_user
-from open_webui.utils.code_interpreter import execute_code_jupyter
+from open_webui.utils.code_interpreter import execute_code_jupyter, execute_code_marimo
 
 
 log = logging.getLogger(__name__)
@@ -61,7 +61,18 @@ async def execute_code(
             ),
             request.app.state.config.CODE_EXECUTION_JUPYTER_TIMEOUT,
         )
-
+        return output
+    elif request.app.state.config.CODE_EXECUTION_ENGINE == "marimo":
+        output = await execute_code_marimo(
+            request.app.state.config.CODE_EXECUTION_MARIMO_URL,
+            form_data.code,
+            (
+                request.app.state.config.CODE_EXECUTION_MARIMO_AUTH_TOKEN
+                if request.app.state.config.CODE_EXECUTION_MARIMO_AUTH == "token"
+                else ""
+            ),
+            request.app.state.config.CODE_EXECUTION_MARIMO_TIMEOUT,
+        )
         return output
     else:
         raise HTTPException(

@@ -104,6 +104,7 @@ from open_webui.utils.filter import (
     process_filter_functions,
 )
 from open_webui.utils.code_interpreter import execute_code_jupyter
+from open_webui.utils.code_interpreter import execute_code_marimo
 from open_webui.utils.payload import apply_system_prompt_to_body
 from open_webui.utils.mcp.client import MCPClient
 
@@ -3519,6 +3520,20 @@ async def process_chat_response(
                                             else None
                                         ),
                                         request.app.state.config.CODE_INTERPRETER_JUPYTER_TIMEOUT,
+                                    )
+                                elif (
+                                    request.app.state.config.CODE_INTERPRETER_ENGINE
+                                    == "marimo"
+                                ):
+                                    output = await execute_code_marimo(
+                                        request.app.state.config.CODE_INTERPRETER_MARIMO_URL,
+                                        code,
+                                        (
+                                            request.app.state.config.CODE_INTERPRETER_MARIMO_AUTH_TOKEN
+                                            if request.app.state.config.CODE_INTERPRETER_MARIMO_AUTH == "token"
+                                            else ""
+                                        ),
+                                        request.app.state.config.CODE_INTERPRETER_MARIMO_TIMEOUT,
                                     )
                                 else:
                                     output = {

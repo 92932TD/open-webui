@@ -2088,6 +2088,36 @@ CODE_EXECUTION_JUPYTER_TIMEOUT = PersistentConfig(
     int(os.environ.get("CODE_EXECUTION_JUPYTER_TIMEOUT", "60")),
 )
 
+CODE_EXECUTION_MARIMO_URL = PersistentConfig(
+    "CODE_EXECUTION_MARIMO_URL",
+    "code_execution.marimo.url",
+    os.environ.get("CODE_EXECUTION_MARIMO_URL", ""),
+)
+
+CODE_EXECUTION_MARIMO_AUTH = PersistentConfig(
+    "CODE_EXECUTION_MARIMO_AUTH",
+    "code_execution.marimo.auth",
+    os.environ.get("CODE_EXECUTION_MARIMO_AUTH", ""),
+)
+
+CODE_EXECUTION_MARIMO_AUTH_TOKEN = PersistentConfig(
+    "CODE_EXECUTION_MARIMO_AUTH_TOKEN",
+    "code_execution.marimo.auth_token",
+    os.environ.get("CODE_EXECUTION_MARIMO_AUTH_TOKEN", ""),
+)
+
+CODE_EXECUTION_MARIMO_AUTH_PASSWORD = PersistentConfig(
+    "CODE_EXECUTION_MARIMO_AUTH_PASSWORD",
+    "code_execution.marimo.auth_password",
+    os.environ.get("CODE_EXECUTION_MARIMO_AUTH_PASSWORD", ""),
+)
+
+CODE_EXECUTION_MARIMO_TIMEOUT = PersistentConfig(
+    "CODE_EXECUTION_MARIMO_TIMEOUT",
+    "code_execution.marimo.timeout",
+    int(os.environ.get("CODE_EXECUTION_MARIMO_TIMEOUT", "60")),
+)
+
 ENABLE_CODE_INTERPRETER = PersistentConfig(
     "ENABLE_CODE_INTERPRETER",
     "code_interpreter.enable",
@@ -2155,6 +2185,52 @@ CODE_INTERPRETER_JUPYTER_TIMEOUT = PersistentConfig(
         os.environ.get(
             "CODE_INTERPRETER_JUPYTER_TIMEOUT",
             os.environ.get("CODE_EXECUTION_JUPYTER_TIMEOUT", "60"),
+        )
+    ),
+)
+
+CODE_INTERPRETER_MARIMO_URL = PersistentConfig(
+    "CODE_INTERPRETER_MARIMO_URL",
+    "code_interpreter.marimo.url",
+    os.environ.get(
+        "CODE_INTERPRETER_MARIMO_URL", os.environ.get("CODE_EXECUTION_MARIMO_URL", "")
+    ),
+)
+
+CODE_INTERPRETER_MARIMO_AUTH = PersistentConfig(
+    "CODE_INTERPRETER_MARIMO_AUTH",
+    "code_interpreter.marimo.auth",
+    os.environ.get(
+        "CODE_INTERPRETER_MARIMO_AUTH",
+        os.environ.get("CODE_EXECUTION_MARIMO_AUTH", ""),
+    ),
+)
+
+CODE_INTERPRETER_MARIMO_AUTH_TOKEN = PersistentConfig(
+    "CODE_INTERPRETER_MARIMO_AUTH_TOKEN",
+    "code_interpreter.marimo.auth_token",
+    os.environ.get(
+        "CODE_INTERPRETER_MARIMO_AUTH_TOKEN",
+        os.environ.get("CODE_EXECUTION_MARIMO_AUTH_TOKEN", ""),
+    ),
+)
+
+CODE_INTERPRETER_MARIMO_AUTH_PASSWORD = PersistentConfig(
+    "CODE_INTERPRETER_MARIMO_AUTH_PASSWORD",
+    "code_interpreter.marimo.auth_password",
+    os.environ.get(
+        "CODE_INTERPRETER_MARIMO_AUTH_PASSWORD",
+        os.environ.get("CODE_EXECUTION_MARIMO_AUTH_PASSWORD", ""),
+    ),
+)
+
+CODE_INTERPRETER_MARIMO_TIMEOUT = PersistentConfig(
+    "CODE_INTERPRETER_MARIMO_TIMEOUT",
+    "code_interpreter.marimo.timeout",
+    int(
+        os.environ.get(
+            "CODE_INTERPRETER_MARIMO_TIMEOUT",
+            os.environ.get("CODE_EXECUTION_MARIMO_TIMEOUT", "60"),
         )
     ),
 )
@@ -2963,7 +3039,7 @@ RAG_OPENAI_API_BASE_URL = PersistentConfig(
 )
 RAG_OPENAI_API_KEY = PersistentConfig(
     "RAG_OPENAI_API_KEY",
-    "rag.openai_api_key",
+    "rag.openai.api_key",
     os.getenv("RAG_OPENAI_API_KEY", OPENAI_API_KEY),
 )
 
